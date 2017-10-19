@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>分类列表</title>
+<script type="text/javascript"src="${ctx}/assets/jquery/jquery-3.2.1.min.js"></script>
+<link rel="stylesheet" href="${ctx}/layui/css/layui.css">
+<script src="${ctx}/layui/layui.js"></script>
+</head>
+<style>
+#reset{
+ display:none;
+}
+
+
+</style>
+<body>
+<div  class="layui-container-full">
+    <fieldset id="dataConsole" class="layui-elem-field layui-field-title">
+ 
+        <div class="layui-field-box">
+            <div id="articleIndexTop">
+                <form class="layui-form layui-form-pane" action="">
+                    <div class="layui-form-item" style="margin:0;margin-top:15px;">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">分类</label>
+                            <div class="layui-input-inline">
+                                <select  id="msg1" lay-filter="type">
+                                    <option value=""></option>
+                                   
+                                </select>
+                            </div>
+                            
+                         
+                           <label class="layui-form-label">类型名称</label>
+    <div class="layui-input-inline" style="width: 180px;">
+      <input type="text" lay-verify="other|required"   id="typeName" name="t.t_typeName" autocomplete="off" class="layui-input">
+    </div>
+                        <div class="layui-inline">
+                            <div class="layui-input-inline" style="width:auto">
+                                <div class="layui-input-inline"  style="width: 180px;">
+      <input type="submit" lay-submit   lay-filter="go"   value="添加分类 " class="layui-btn layui-btn-normal layui-btn-smal">
+      <button id="reset" type="reset" class="layui-btn layui-btn-danger btn-reset"  >重置</button>
+    </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset id="dataList" class="layui-elem-field layui-field-title sys-list-field" ">
+        <legend style="text-align:center;">分类列表</legend>
+        <div class="layui-field-box">
+            <div id="dataContent" class="layui-container-full">
+                 <table id="showTypes" lay-filter="alist"></table>
+               
+                <div id="pageNav"></div>
+            </div>
+        </div>
+    </fieldset>
+
+
+
+
+    <div id="box" style="display: none" >
+		<form class="layui-form layui-form-pane" autocomplete="off">  
+		<input type="hidden" name="t.t_id" id="t_id">
+	
+  		 <div class="layui-inline" style=" margin-left:14%; margin-top:10px;">
+    <label class="layui-form-label">内容</label>
+    <div class="layui-input-inline" style="width: 180px;">
+      <input type="text" lay-verify="required"   id="t_typeName" name="t.t_typeName" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+           <div class="layui-inline" style=" margin-left:42%; margin-top:10px;">
+    <div class="layui-input-inline" style="width: 180px;">
+      <input type="submit" lay-submit  lay-filter="edit"   value="提交 " class="layui-btn layui-btn-smal">
+      &nbsp;
+      <button type="reset" id="reset1" class="layui-btn layui-btn-danger btn-reset"  >重置</button>
+    </div>
+    </div>  
+			          
+		</form>
+</div>
+
+ 
+ <div >  
+ </div>
+</body>
+
+<script>
+function getTypeValue(){
+	$.ajax({    
+	    url: "${ctx}/typeMange/getTypeValue" ,    //后台方法名称    
+	    type: "post",   
+	    dataType: "json",    
+	    traditional: true,    
+	    success: function (data) {   
+	         var optionstring = "";    
+	         for (var j = 0; j < data.length; j++) {    
+	             optionstring += "<option value=\"" + data[j].t_typeName + "\" >" + data[j].t_typeName + "</option>";  
+	         }    
+	         $("#msg1").html("<option value='请选择'>请选择...</option> "+optionstring);   
+	    },    
+	    error: function (msg) {    
+	        alert("下拉框加载出错了！");    
+	    }    
+	});
+	};
+
+	getTypeValue()
+	
+
+
+
+
+	layui.use(['table','element','layedit','laydate','form'], function() {
+		var table = layui.table;
+		var form = layui.form;
+		var layedit = layui.layedit;
+		var laydate = layui.laydate;
+        form.render();
+		
+		var w =  document.body.clientWidth*0.09;
+		layedit.build('demo');
+		laydate.render({
+			    elem: '#test1'
+			  });
+		table.render({
+			elem : '#showTypes' //指定原始表格元素选择器（推荐id选择器）
+			,
+			width:$(".layui-container").attr("width")*0.98,
+			
+			url : '${ctx}/typeMange/showTypes',
+			id:'Types',
+			cols : [ [ //标题栏
+			{
+				field : 't_id',
+				fixed : true,
+				width : w,
+				title : '类型编号'
+			}, {
+				field : 't_typeName',
+				width : w,
+				title : '类型名称'
+			},{
+				
+				width : 158,
+				title : '操作',
+				toolbar : '#CheckBar'
+			} ] ],
+			page : true,
+			limits : [ 10, 30, 60 ],
+			limit : 10
+		});
+		
+
+	
+		
+       	    form.on('submit(go)', function(data){
+       	    	
+       	    	
+       	    	form.verify({
+    			   other : [ /^[^ ]{1,20}$/, '不能为空且长度不能大于20' ]
+    			});
+       	    	
+       	    	
+       	    	
+	    	$.post('${ctx}/typeMange/addType',data.field,function(res){
+	    		layer.closeAll();
+	    		if(res.msg==1){
+	    			layer.msg('添加成功', {
+	 	    		   icon:1,
+	 	     		   time: 1000 
+	 	     		 }, function(){
+	 	     			table.reload('Types');
+	 	     		
+	 	     			location.reload();
+	 	     	
+	 	     		});
+	    		}else{
+	    			layer.msg('添加失败', {
+	 	    		   icon:2,
+	 	     		   time: 1000 
+	 	     		 }, function(){
+	 	     			table.reload('Types');
+	 	     		});
+	    		}
+	    	});  	
+	    	$('#reset').click();
+	
+	    	return false;
+	    	});
+       	    
+       	    
+       	 form.on('submit(edit)', function(data){
+    	    	
+    	    	
+    	    	form.verify({
+ 			   sort : [ /^[^ ]{1,2}$/, '不能为空且长度不能大于2' ],
+ 			   other : [ /^[^ ]{1,20}$/, '不能为空且长度不能大于20' ]
+ 			});
+    	    	
+    	    	
+    	    	
+	    	$.post('${ctx}/typeMange/editType',data.field,function(res){
+	    		
+	    		if(res.msg==1){
+	    			layer.msg('修改成功', {
+	 	    		   icon:1,
+	 	     		   time: 1000 
+	 	     		 }, function(){
+	 	     			location.reload(); 	     	
+	 	     		});
+	    		}else if(res.msg!=null){
+	    			layer.msg(res.msg, {
+	 	    		   icon:2,
+	 	     		   time: 1000 
+	 	     		 }, function(){
+	 	     			table.reload('Types');
+	 	     		});
+	    		}else{
+	    			layer.msg('请检查输入是否有误！');
+	    		}
+	    	});  		
+	    	return false;
+	    	});
+
+		 
+		table.on('tool(alist)', function(obj) {
+			var data = obj.data;
+			var id = data.t_id;
+		
+			if (obj.event === 'detail') {
+				layer.open({
+					type : 1,
+					title : '编辑类型', // [可选]
+					content : $('#box'), // 对话框中的内容部分
+					area : [ '430px', '160px' ], // 对话框的大小 [可选]
+					shadeClose : true,
+					shade:0.00001,
+					success: function(layero, index){
+					    $('#t_id').val(data.t_id);
+					    $('#t_typeName').val(data.t_typeName);
+					  }
+				});
+				
+			}else if (obj.event === 'delete') {
+
+				var url = "${ctx}/typeMange/deleteType/" + id;
+				layer.confirm('真的删除行么', {
+					title : '提示',
+					shade : 0,
+				}, function(index) {
+					$.ajax({
+						type : 'post',
+						url : url,
+						success : function(msg) {
+
+							if (msg.msg != null) {
+								layer.msg(msg.msg, {
+									icon : 1,
+									time : 1000
+								}, function() {
+									table.reload('Types');
+									 getTypeValue()
+									location.reload();
+									
+								});
+							}
+
+						}
+					});
+				})
+
+			}
+		});
+
+	});
+</script> 
+
+<script type="text/html" id="CheckBar">
+  <a class="layui-btn layui-btn-mini" lay-event="detail">编辑</a>
+  <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="delete">删除</a>
+</script>
+</html>

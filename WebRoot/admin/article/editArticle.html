@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script type="text/javascript" src="${ctx}/assets/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="${ctx}/layui/layui.js"></script>	
+<link rel="stylesheet" href="${ctx}/layui/css/layui.css">
+    <script type="text/javascript" charset="utf-8" src="${ctx}/assets/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="${ctx}/assets/ueditor/ueditor.all.min.js"> </script>
+    <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+    <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+    <script type="text/javascript" charset="utf-8" src="${ctx}/assets/ueditor/lang/zh-cn/zh-cn.js"></script>
+<style>
+ body{
+  margin: 0;
+  padding: 0;
+ }
+</style>
+<body>
+<div class="layui-container-full">
+<span class="layui-breadcrumb">
+  <a style="color:#009688 !important;" href="${ctx}/articleMange">文章管理</a>
+  <a><cite>编辑文章</cite></a>
+</span>
+<fieldset id="dataList" class="layui-elem-field layui-field-title sys-list-field" ">
+  <legend style="text-align:center;">编辑文章</legend>
+  </fieldset>
+<form class="layui-form layui-form-pane" id="addform" name="upfile" method="post" action="${ctx}/articleMange/updataArticle">
+
+    <input type="hidden" name="a.a_id" value="${(a.a_id)!' '}">
+  <div class="layui-form-item">
+    <label class="layui-form-label">文章标题</label>
+    <div class="layui-input-block">
+      <input type="text" id="a_title" value="${(a.a_title)!''}"  name="a.a_title" value="" autocomplete="off" placeholder="请输入标题" class="layui-input">
+    </div>
+  </div>
+  
+   <div class="layui-form-item">
+   
+    <label class="layui-form-label">文章介绍</label>
+  <div class="layui-input-inline"> <!-- 注意：这一层元素并不是必须的 -->
+  <input type="text" value="${(a.a_subHeading)!''}"  class="layui-input" name="a.a_subHeading" placeholder="请输入">
+  </div>
+  
+   <label class="layui-form-label">时间</label>
+  <div class="layui-input-inline"> <!-- 注意：这一层元素并不是必须的 -->
+  <input type="text"  value="${(a.a_createTime)!' '}" class="layui-input" name="a.a_createTime" placeholder="请输入"  id="test1">
+  </div>
+  
+     <label  class="layui-form-label">文章类型</label>
+    <div  class="layui-input-inline">
+      <select id="atype" name="a.a_type" lay-filter="type" >
+       <option  value=""></option> 
+      <#list tlist as t>
+        <option  value="${(t.t_typeName)!''}">${(t.t_typeName)!''}</option>   
+        </#list>
+          <input type="hidden" id="typename" value="${a.a_type}">  
+      </select>
+    </div>
+    
+  </div>
+
+  <div class="layui-form-item layui-form-text" style="position:relative;z-index: 0;">
+  
+    <div class="layui-input-block">
+     	<script id="editor" type="text/plain" style="width:99.89%;min-height:350px;visibility: visible;">${(a.a_article)!' '}</script>
+    </div>
+  </div>
+    
+  
+     <div class="layui-form-item" style="text-align:center;">
+    <button class="layui-btn" lay-submit="" lay-filter="add">提交</button>   <button type="reset" id="reset" class="layui-btn layui-btn-danger btn-reset"  >重置</button>
+  </div> 
+</form>
+</div>
+</body>
+<script type="text/javascript">
+		//实例化编辑器
+		//建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+		var ue = UE.getEditor('editor');
+
+		
+		
+		
+	
+	</script>
+<script>
+
+
+// $.ajax({  
+//     url: "${ctx}/articleMange/getTypeValue" ,    //后台方法名称  
+//     type: "post", 
+//     dataType: "json",  
+//     traditional: true,  
+//     success: function (data) { 
+         
+         
+//          var optionstring = "";  
+//          for (var j = 0; j < data.length; j++) {  
+//              optionstring += "<option value=\"" + data[j].t_typeName + "\" >" + data[j].t_typeName + "</option>";  
+//          }  
+//          $("#atype").html("<option value='请选择'>请选择...</option> "+optionstring); 
+//     },  
+//     error: function (msg) {  
+//         alert("下拉框加载出错了！");  
+//     }  
+// }); 
+
+
+layui.use(['element','laydate','form'], function() {
+	var table = layui.table;
+	var form = layui.form;
+	var layedit = layui.layedit;
+	var laydate = layui.laydate;
+	laydate.render({
+	    elem: '#test1',
+	    type: 'datetime',
+	  });
+  
+	$("#atype").val($('#typename').val());
+	form.render('select');
+	
+
+	})
+
+
+</script>
+
+
+</html>

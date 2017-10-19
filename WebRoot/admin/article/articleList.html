@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>文章列表</title>
+<script type="text/javascript"src="${ctx}/assets/jquery/jquery-3.2.1.min.js"></script>
+<link rel="stylesheet" href="${ctx}/layui/css/layui.css">
+<script src="${ctx}/layui/layui.js"></script>
+</head>
+<body>
+<div  class="layui-container-full">
+    <fieldset id="dataConsole" class="layui-elem-field layui-field-title">
+ 
+        <div class="layui-field-box">
+            <div id="articleIndexTop">
+                <form class="layui-form layui-form-pane" action="">
+                    <div class="layui-form-item" style="margin:0;margin-top:15px;">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">分类</label>
+                            <div class="layui-input-inline">
+                                <select id="msg1" name="city">
+                                    <option value=""></option>
+                                       <#list tlist as t>
+                                          <option value="${(t.t_typeName)!' '}">${(t.t_typeName)!' '}</option>
+                                         </#list>
+                                </select>
+                            </div>
+                            <label class="layui-form-label">关键词</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="keywords" id="msg" autocomplete="off" class="layui-input">
+                            </div>
+                            <div class="layui-input-inline" style="width:auto">
+                                <span class="layui-btn" id="serch">搜索</span>
+                               <input type="reset"  id="reset" class="layui-btn layui-btn-danger btn-reset" value='重置'>                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <div class="layui-input-inline" style="width:auto">
+                                <a id="addArticle" class="layui-btn layui-btn-normal">发表文章</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset id="dataList" class="layui-elem-field layui-field-title sys-list-field" ">
+        <legend style="text-align:center;">文章列表</legend>
+        <div class="layui-field-box">
+            <div id="dataContent" class="layui-container-full">
+                 <table id="showArticles" lay-filter="alist"></table>
+               
+                <div id="pageNav"></div>
+            </div>
+        </div>
+    </fieldset>
+
+
+ 
+ 
+
+</body>
+
+<script>
+
+	layui.use(['table','element','layedit','laydate','form'], function() {
+		var table = layui.table;
+		var form = layui.form;
+		var layedit = layui.layedit;
+		var laydate = layui.laydate;
+		form.render('select');
+		
+		var w =  document.body.clientWidth*0.09;
+		layedit.build('demo');
+		laydate.render({
+			    elem: '#test1'
+			  });
+		table.render({
+			elem : '#showArticles' //指定原始表格元素选择器（推荐id选择器）
+			,
+			width:$(".layui-container").attr("width")*0.98,
+			
+			url : '${ctx}/articleMange/showArticles',
+			id:'Articles',
+			cols : [ [ //标题栏
+			{
+				field : 'a_id',
+				fixed : true,
+				width : w,
+				title : '文章编号'
+			}, {
+				field : 'a_userName',
+				width : w,
+				title : '作者'
+			}, {
+				field : 'a_title',
+				width : w,
+				title : '标题 '
+			}, {
+				field : 'a_subHeading',
+				width : w,
+				title : '文章介绍'
+			}, {
+				field : 'a_createTime',
+				width : w,
+				title : '编辑时间'
+			}, {
+				field : 'a_type',
+				width : w,
+				title : '文章类型'
+			},{
+				field : 'a_msgCount',
+				width : w,
+				title : '留言条数'
+			},
+			{
+				field : 'a_views',
+				width : w,
+				title : '查看次数'
+			}, {
+				
+				width : 158,
+				title : '操作',
+				toolbar : '#CheckBar'
+			} ] ],
+			page : true,
+			limits : [ 10, 30, 60 ],
+			limit : 10
+		});
+		
+		
+
+		$('#reset').on('click', function() {
+			table.reload('Articles');
+		})
+		$('#serch').on('click', function() {
+			 var id = $("#msg").val()+$("#msg1").val();
+ 		   table.render({
+ 				elem : '#showArticles' //指定原始表格元素选择器（推荐id选择器）
+ 				,
+ 				width:$(".layui-container").attr("width")*0.98,
+ 				
+ 				url : '${ctx}/articleMange/showArticles?msg='+id,
+ 				cols : [ [ //标题栏
+ 				{
+ 					field : 'a_id',
+ 					fixed : true,
+ 					width : w,
+ 					title : '文章编号'
+ 				}, {
+ 					field : 'a_userName',
+ 					width : w,
+ 					title : '作者'
+ 				}, {
+ 					field : 'a_title',
+ 					width : w,
+ 					title : '标题 '
+ 				}, {
+ 					field : 'a_subHeading',
+ 					width : w,
+ 					title : '文章介绍'
+ 				}, {
+ 					field : 'a_createTime',
+ 					width : w,
+ 					title : '编辑时间'
+ 				}, {
+ 					field : 'a_type',
+ 					width : w,
+ 					title : '文章类型'
+ 				},{
+ 					field : 'a_msgCount',
+ 					width : w,
+ 					title : '留言条数'
+ 				},
+ 				{
+ 					field : 'a_views',
+ 					width : w,
+ 					title : '查看次数'
+ 				}, {
+ 					
+ 					width : 158,
+ 					title : '操作',
+ 					toolbar : '#CheckBar'
+ 				} ] ],
+ 				page : true,
+ 				limits : [ 10, 30, 60 ],
+ 				limit : 10
+ 			});
+
+		})
+		 //打开添加文章的layer 
+		$('#addArticle').on('click', function() {
+		  
+			window.location.href='${ctx}/articleMange/addArticle';
+		
+		})
+		
+
+
+		 
+		table.on('tool(alist)', function(obj) {
+			var data = obj.data;
+			var id = data.a_id;
+
+		
+			if (obj.event === 'detail') {
+				window.location.href='${ctx}/articleMange/editArticle/'+id;
+			
+			} else if (obj.event === 'show') {
+				var url = "${ctx}/article/selectArticle/" + id;
+			    
+				layer.open({
+					  type: 2,
+					  title:'查看文章',
+					  content:url,
+					  shade:0.000000000000001,
+				      shadeClose:true,
+					  area: ['100%', '100%']//这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+					});
+
+			} else if (obj.event === 'delete') {
+
+				var url = "${ctx}/articleMange/deleteArticle/" + id;
+				layer.confirm('真的删除行么', {
+					title : '提示',
+					shade : 0,
+				}, function(index) {
+					$.ajax({
+						type : 'post',
+						url : url,
+						success : function(msg) {
+
+							if (msg.msg != null) {
+								layer.msg(msg.msg, {
+									icon : 1,
+									time : 1000
+								}, function() {
+									table.reload('Articles');
+
+								});
+							}
+
+						}
+					});
+				})
+
+			}
+		});
+
+	});
+</script> 
+
+<script type="text/html" id="CheckBar">
+  <a class="layui-btn layui-btn-mini" lay-event="detail">编辑</a>
+  <a class="layui-btn layui-btn-mini" lay-event="show">查看</a>
+  <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="delete">删除</a>
+</script>
+</html>

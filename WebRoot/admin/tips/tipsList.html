@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>首页公告列表</title>
+<script type="text/javascript"src="${ctx}/assets/jquery/jquery-3.2.1.min.js"></script>
+<link rel="stylesheet" href="${ctx}/layui/css/layui.css">
+<script src="${ctx}/layui/layui.js"></script>
+</head>
+<style>
+#reset{
+ display:none;
+}
+
+
+</style>
+<body>
+<div  class="layui-container-full">
+    <fieldset id="dataConsole" class="layui-elem-field layui-field-title">
+ 
+        <div class="layui-field-box">
+            <div id="articleIndexTop">
+                <form class="layui-form layui-form-pane">
+                    <div class="layui-form-item" style="margin:0;margin-top:15px;">
+                        
+            <label class="layui-form-label">排序</label>                    
+     <div class="layui-input-inline" style="width: 180px;">
+      <input type="test" lay-verify="sort|required|number"   name="t_sort" autocomplete="off" class="layui-input">
+    </div>                 
+                            
+                <label class="layui-form-label">公告内容</label>                     
+    <div class="layui-input-inline" style="width: 180px;">
+      <input type="text" lay-verify="other|required"  name="t_content" autocomplete="off" class="layui-input">
+    </div>             
+           
+   
+                        <div class="layui-inline">
+                            <div class="layui-input-inline" style="width:auto">
+                                <div class="layui-input-inline"  style="width: 180px;">
+      <input type="submit" lay-submit   lay-filter="go"   value="添加公告 " class="layui-btn layui-btn-normal layui-btn-smal">
+      <button id="reset" type="reset" class="layui-btn layui-btn-danger btn-reset"  >重置</button>
+    </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset id="dataList" class="layui-elem-field layui-field-title sys-list-field" ">
+        <legend style="text-align:center;">公告列表</legend>
+        <div class="layui-field-box">
+            <div id="dataContent" class="layui-container-full">
+                 <table id="showTips" lay-filter="tlist"></table>
+               
+                <div id="pageNav"></div>
+            </div>
+        </div>
+    </fieldset>
+
+
+
+<div id="box" style="display: none" >
+		<form class="layui-form layui-form-pane" autocomplete="off">  
+		<input type="hidden" name="t.t_id" id="t_id">
+				 <div class="layui-inline" style=" margin-left:14%; margin-top:20px;">
+    <label class="layui-form-label">排序</label>
+    <div class="layui-input-inline" style="width: 180px;">
+         <input type="test" lay-verify="sort|required|number"   id="sort" name="t.t_sort" autocomplete="off" class="layui-input">
+    </div>
+  </div> 
+  		 <div class="layui-inline" style=" margin-left:14%; margin-top:10px;">
+    <label class="layui-form-label">内容</label>
+    <div class="layui-input-inline" style="width: 180px;">
+      <input type="text" lay-verify="required"   id="content" name="t.t_content" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+           <div class="layui-inline" style=" margin-left:42%; margin-top:10px;">
+    <div class="layui-input-inline" style="width: 180px;">
+      <input type="submit" lay-submit  lay-filter="edit"   value="提交 " class="layui-btn layui-btn-smal">
+      &nbsp;
+      <button type="reset" id="reset1" class="layui-btn layui-btn-danger btn-reset"  >重置</button>
+    </div>
+    </div>  
+			          
+		</form>
+</div>
+
+ 
+ <div >  
+ </div>
+</body>
+
+<script>
+
+
+
+
+
+	layui.use(['table','element','layedit','laydate','form'], function() {
+		var table = layui.table;
+		var form = layui.form;
+		var layedit = layui.layedit;
+		var laydate = layui.laydate;
+        form.render();
+		
+		var w =  document.body.clientWidth*0.09;
+		layedit.build('demo');
+		laydate.render({
+			    elem: '#test1'
+			  });
+		table.render({
+			elem : '#showTips' //指定原始表格元素选择器（推荐id选择器）
+			,
+			width:$(".layui-container").attr("width")*0.98,
+			
+			url : '${ctx}/tipsMange/showTips',
+			id:'Tips',
+			cols : [ [ //标题栏
+			{
+				field : 't_id',
+				fixed : true,
+				width : w,
+				title : '公告'
+			},{
+				field : 't_sort',
+				width : w,
+				title : '排序'
+			},{
+				field : 't_content',
+				width : w+w,
+				title : '内容'
+			},
+			{
+				width : 158,
+				title : '操作',
+				toolbar : '#CheckBar'
+			} ] ],
+			page : true,
+			limits : [ 10, 30, 60 ],
+			limit : 10
+		});
+		
+
+	
+		
+       	    form.on('submit(go)', function(data){
+       	    	
+       	    	
+       	    	form.verify({
+    			   sort : [ /^[^ ]{1,2}$/, '不能为空且长度不能大于2' ],
+    			   other : [ /^[^ ]{1,20}$/, '不能为空且长度不能大于20' ]
+    			});
+       	    	
+       	    	
+       	    	
+	    	$.post('${ctx}/tipsMange/addTips',data.field,function(res){
+	    		
+	    		if(res.msg==1){
+	    			layer.msg('添加成功', {
+	 	    		   icon:1,
+	 	     		   time: 1000 
+	 	     		 }, function(){
+	 	     			table.reload('Tips'); 	     	
+	 	     		});
+	    		}else if(res.msg!=null){
+	    			layer.msg(res.msg, {
+	 	    		   icon:2,
+	 	     		   time: 1000 
+	 	     		 }, function(){
+	 	     			table.reload('Tips');
+	 	     		});
+	    		}else{
+	    			layer.msg('请检查输入是否有误！');
+	    		}
+	    	});  	
+	    	$('#reset').click();
+	
+	    	return false;
+	    	});
+        
+       	    
+	    form.on('submit(edit)', function(data){
+       	    	
+       	    	
+       	    	form.verify({
+    			   sort : [ /^[^ ]{1,2}$/, '不能为空且长度不能大于2' ],
+    			   other : [ /^[^ ]{1,20}$/, '不能为空且长度不能大于20' ]
+    			});
+       	    	
+       	    	
+       	    	
+	    	$.post('${ctx}/tipsMange/editTips',data.field,function(res){
+	    		
+	    		if(res.msg==1){
+	    			layer.msg('编辑成功', {
+	 	    		   icon:1,
+	 	     		   time: 1000 
+	 	     		 }, function(){
+	 	     			location.reload(); 	     	
+	 	     		});
+	    		}else if(res.msg!=null){
+	    			layer.msg(res.msg, {
+	 	    		   icon:2,
+	 	     		   time: 1000 
+	 	     		 }, function(){
+	 	     			table.reload('Tips');
+	 	     	    	
+	 	     		});
+	    		}else{
+	    			layer.msg('请检查输入是否有误！');
+	    		}
+	    	});  		
+	    	return false;
+	    	});
+		 
+		table.on('tool(tlist)', function(obj) {
+			var data = obj.data;
+			var id = data.t_id;
+		
+			if (obj.event === 'detail') {
+				layer.open({
+					type : 1,
+					title : '编辑公告', // [可选]
+					content : $('#box'), // 对话框中的内容部分
+					area : [ '435px', '240px' ], // 对话框的大小 [可选]
+					shadeClose : true,
+					shade:0.00001,
+					success: function(layero, index){
+					    $('#t_id').val(data.t_id);
+					    $('#sort').val(data.t_sort);
+					    $('#content').val(data.t_content);
+					  }
+				});
+				
+				
+			}else if (obj.event === 'delete') {
+              
+			
+				var url = "${ctx}/tipsMange/deleteTips/" + id;
+				layer.confirm('真的删除行么', {
+					title : '提示',
+					shade : 0,
+				}, function(index) {
+					$.ajax({
+						type : 'post',
+						url : url,
+						success : function(msg) {
+
+							if (msg.msg != null) {
+								layer.msg(msg.msg, {
+									icon : 1,
+									time : 1000
+								}, function() {
+									table.reload('Tips');	
+								});
+							}
+
+						}
+					});
+				})
+
+			}
+		});
+
+	});
+</script> 
+
+<script type="text/html" id="CheckBar">
+  <a class="layui-btn layui-btn-mini" lay-event="detail">编辑</a>
+  <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="delete">删除</a>
+</script>
+</html>

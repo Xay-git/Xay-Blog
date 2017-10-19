@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="Generator" content="EditPlus®">
+    <meta name="Author" content="梦想星辰大海">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <title>点点blog后台</title>
+    <link rel="shortcut icon" href="${ctx}/assets/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="${ctx}/admin/layui/css/layui.css">
+    <style>
+   .layui-nav-tree a{
+       padding-left: 25% !important;
+     }
+    </style>
+</head>
+
+<body>
+    <!-- 布局容器 -->
+    <div class="layui-layout layui-layout-admin">
+        <!-- 头部 -->
+        <div class="layui-header">
+            <div class="layui-main">
+                <!-- logo -->
+                <a href="${ctx}/admin" target="_blank" style="color: #c2c2c2; font-size: 18px; line-height: 60px;">点点blog后台</a>
+                <!-- 水平导航 -->
+                <ul class="layui-nav" style="position: absolute; top: 0; right: 0; background: none;">
+                    <li class="layui-nav-item">
+                        <a target="_blank" href="${ctx}/blog">
+                            前台
+                        </a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">
+                           xay
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:;">
+                                    个人信息
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;">
+                                    修改密码
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;">
+                                    退出登录
+                                </a>
+                            </dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 侧边栏 -->
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <ul class="layui-nav layui-nav-tree" lay-filter="left-nav" style="border-radius: 0;">
+                </ul>
+            </div>
+        </div>
+
+        <!-- 主体 -->
+        <div class="layui-body">
+            <!-- 顶部切换卡 -->
+            <div class="layui-tab layui-tab-brief" lay-filter="top-tab" lay-allowClose="true" style="margin: 0;">
+                <ul class="layui-tab-title"></ul>
+                <div class="layui-tab-content"></div>
+            </div>
+        </div>
+
+        <!-- 底部 -->
+        <div class="layui-footer" style="text-align: center; line-height: 44px;">
+            Copyright © 2017 <a href="http://www.kiscms.com" target="_blank">kiscms</a> Powered by 梦想星辰大海
+        </div>
+    </div>
+
+    <script type="text/javascript" src="${ctx}/admin/layui/layui.js"></script>
+    <script type="text/javascript">
+        /**
+         * 对layui进行全局配置
+         */
+        layui.config({
+            base: '${ctx}/admin/js/'
+        });
+
+        /**
+         * 初始化整个cms骨架
+         */
+        layui.use(['cms'], function() {
+            var cms = layui.cms('left-nav', 'top-tab');
+
+            cms.addNav([
+                {id: 1, pid: 0, node: '欢迎', url: '${ctx}/admin/main'},
+                {id: 2, pid: 0, node: 'blog管理', url: ''},    
+                {id: 3, pid: 2, node: '文章管理', url: '${ctx}/articleMange'},
+                {id: 4, pid: 2, node: '文章分类 ', url: '${ctx}/typeMange'},
+                {id: 5, pid: 2, node: '网站公告', url: '${ctx}/tipsMange'},
+                {id: 6, pid: 2, node: '开发日志', url: '${ctx}/devMange'},
+                {id: 7, pid: 0, node: '用户管理', url: ''}, 
+                {id: 8, pid: 7, node: '个人信息', url: ''},
+            ], 0, 'id', 'pid', 'node', 'url');
+
+            cms.bind(60 + 41 + 20 + 44); //头部高度 + 顶部切换卡标题高度 + 顶部切换卡内容padding + 底部高度
+
+            cms.clickLI(0);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+                 <div class="blog-module shadow">
+                        <div class="blog-module-title">热文排行</div>
+                        <ul class="fa-ul blog-module-ul">
+                             <#list vlist.list as v>
+                            <li><i class="fa-li fa fa-hand-o-right"></i><a style="color:red;" href="${ctx}/article/selectArticle/${(v.a_id)!' '}">${(v.a_title)!' '}</a></li>
+                            </#list>
+                        </ul>
+                    </div>
+                    <div class="blog-module shadow">
+                        <div class="blog-module-title">最近分享</div>
+                        <ul class="fa-ul blog-module-ul">
+                         <#list clist.list as c>
+                            <li><i class="fa-li fa fa-hand-o-right"></i><a style="color:rgb(0, 150, 136);" href="${ctx}/article/selectArticle/${(c.a_id)!' '}">${(c.a_title)!' '}</a></li>
+                            </#list>
+                        </ul>
+                    </div>
+                    <div class="blog-module shadow">
+                        <div class="blog-module-title">一路走来</div>
+                        <dl class="footprint">
+                          <#list dlist as d>
+                            <dt>${(d.d_time)!''}</dt>
+                            <dd>${(d.d_log)!''}</dd>
+                           </#list> 
+                        </dl>
+                    </div>
+                    <div class="blog-module shadow">
+                        <div class="blog-module-title">后台记录</div>
+                        <dl class="footprint">
+                         <#list adlist as ad>
+                            <dt>${(ad.d_time)!''}</dt>
+                            <dd>${(ad.d_log)!''}</dd>
+                           </#list> 
+                        </dl>
+                    </div>
+                    <div class="blog-module shadow">
+                        <div class="blog-module-title">友情链接</div>
+                        <ul class="blogroll">
+                            <#list flist as f>
+                            <li><a target="_blank" href="${(f.x_linkUrl)}" title="Layui">${(f.x_linkName)!''}</a></li>
+                            </#list>
+                        </ul>
+                    </div>
+</body>
+</html>

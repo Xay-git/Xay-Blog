@@ -1,0 +1,23 @@
+<!-- 主页面布局 -->
+<#macro blogLayout css="" js="">
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<link rel="Shortcut Icon" href=${ctx}/assets/favicon.ico>
+<title>点点Blog</title>
+${css}
+</head >
+<body>
+
+   <#include "${ctx}/public/blog_header.html"/>
+   <#nested><!-- 占位符 -->
+   
+
+${js}  
+   <#include "${ctx}/public/blog_footer.html"/>
+
+</body>
+</html>
+</#macro>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<div class="blog-main-left">
+<!--                     <div class="shadow" style="text-align:center;font-size:16px;padding:40px 15px;background:#fff;margin-bottom:15px;"> -->
+<!--                         未搜索到与【<span style="color: #FF5722;">keywords</span>】有关的文章，随便看看吧！ -->
+<!--                     </div> -->
+                  
+                    <#list alist as a>
+                        <div class="article shadow">
+                        <div class="article-left">
+                            <img src="${ctx}${(a.a_thumbnail)!'/upload/p1'}" alt="" />
+                        </div>
+                        <div class="article-right">
+                            <div class="article-title">
+                                <a  href="${ctx}/article/selectArticle/${(a.a_id)!' '}">${(a.a_title)!' '}</a>
+                            </div>
+                            <hr>
+                            <div class="article-abstract ">
+                               ${(a.a_subHeading)!''}
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="article-footer">
+                            <span><i class="fa fa-clock-o"></i>&nbsp;&nbsp;${(a.a_createTime)!' '}</span>
+                            <span class="article-author"><i class="fa fa-user"></i>&nbsp;&nbsp;${(a.a_userName)!' '}</span>
+                            <span><i class="fa fa-tag"></i>&nbsp;&nbsp;<a href="#">${(a.a_type)!' '}</a></span>
+                            <span class="article-viewinfo"><i class="fa fa-eye"></i>&nbsp;${(a.a_views)!' '}</span>
+                             <span class="article-viewinfo"><i class="fa fa-commenting"></i>&nbsp;${(a.a_msgCount)!' '}</span>
+                            
+                        </div>
+                    </div>
+                  </#list>
+                  
+                </div>
+</body>
+</html>

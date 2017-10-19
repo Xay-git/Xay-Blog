@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>开发日志列表</title>
+<script type="text/javascript"src="${ctx}/assets/jquery/jquery-3.2.1.min.js"></script>
+<link rel="stylesheet" href="${ctx}/layui/css/layui.css">
+<script src="${ctx}/layui/layui.js"></script>
+</head>
+<style>
+#reset,#reset1{
+ display:none;
+}
+
+
+</style>
+<body>
+<div  class="layui-container-full">
+    <fieldset id="dataConsole" class="layui-elem-field layui-field-title"></fieldset>
+<div class="layui-tab">
+  <ul class="layui-tab-title">
+    <li class="layui-this">前台开发日志</li>
+    <li>后台开发日志</li>
+
+  </ul>
+  <div class="layui-tab-content">
+    <div class="layui-tab-item layui-show">
+     <fieldset id="dataConsole" class="layui-elem-field layui-field-title">
+
+        <legend style="text-align:center;">前台开发日志</legend>
+        
+        <div class="layui-field-box">
+        
+            <div id="articleIndexTop">
+                <form class="layui-form layui-form-pane">
+                    <div class="layui-form-item" style="margin:0;margin-top:15px;">
+                        
+            <label class="layui-form-label">时间</label>                    
+     <div class="layui-input-inline" style="width: 180px;">
+      <input type="text" id="test1" name="d.d_time" lay-verify="required"   autocomplete="off" class="layui-input">
+    </div>                 
+                            
+                <label class="layui-form-label">更新内容</label>                     
+    <div class="layui-input-inline" style="width: 180px;">
+      <input type="text" lay-verify="required"  name="d.d_log" autocomplete="off" class="layui-input">
+    </div>             
+           
+   
+                        <div class="layui-inline">
+                            <div class="layui-input-inline" style="width:auto">
+                                <div class="layui-input-inline"  style="width: 180px;">
+      <input type="submit" lay-submit   lay-filter="go"   value="添加日志" class="layui-btn layui-btn-normal layui-btn-smal">
+      <button id="reset" type="reset" class="layui-btn layui-btn-danger btn-reset"  >重置</button>
+    </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset id="dataList" class="layui-elem-field layui-field-title sys-list-field" ">
+        <legend style="text-align:center;">日志列表</legend>
+        <div class="layui-field-box">
+            <div id="dataContent" class="layui-container-full">
+                 <table id="showDevList" lay-filter="dlist"></table>
+               
+                <div id="pageNav"></div>
+            </div>
+        </div>
+    </fieldset>
+    
+    
+    </div>
+    <div class="layui-tab-item">
+    
+     <fieldset id="dataConsole" class="layui-elem-field layui-field-title">
+
+        <legend style="text-align:center;">后台开发日志</legend>
+        <div class="layui-field-box">
+            <div id="articleIndexTop">
+                <form class="layui-form layui-form-pane">
+                    <div class="layui-form-item" style="margin:0;margin-top:15px;">
+                        
+             <label class="layui-form-label">时间</label>                    
+     <div class="layui-input-inline" style="width: 180px;">
+      <input type="text" id="test2" name="a.d_time" lay-verify="required"   autocomplete="off" class="layui-input">
+    </div>                 
+                            
+                <label class="layui-form-label">更新内容</label>                     
+    <div class="layui-input-inline" style="width: 180px;">
+      <input type="text" lay-verify="required"  name="a.d_log" autocomplete="off" class="layui-input">
+    </div>             
+           
+   
+                        <div class="layui-inline">
+                            <div class="layui-input-inline" style="width:auto">
+                                <div class="layui-input-inline"  style="width: 180px;">
+      <input type="submit" lay-submit   lay-filter="go1"   value="添加日志" class="layui-btn layui-btn-normal layui-btn-smal">
+      <button id="reset1" type="reset" class="layui-btn layui-btn-danger btn-reset"  >重置</button>
+    </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset id="dataList" class="layui-elem-field layui-field-title sys-list-field" ">
+        <legend style="text-align:center;">日志列表</legend>
+        <div class="layui-field-box">
+            <div id="dataContent" class="layui-container-full">
+                 
+               <table id="showAdminDevList" lay-filter="adlist"></table>
+                <div id="pageNav"></div>
+            </div>
+        </div>
+    </fieldset>
+    
+    
+    </div>
+  
+  </div>
+</div>
+ 
+
+
+
+
+
+
+<div id="box" style="display: none" >
+		<form class="layui-form layui-form-pane" autocomplete="off">  
+		<input type="hidden" name="d.d_id" id="d_id">
+				 <div class="layui-inline" style=" margin-left:14%; margin-top:20px;">
+    <label class="layui-form-label">排序</label>
+    <div class="layui-input-inline" style="width: 180px;">
+         <input type="text" lay-verify="required"   id="d_time" name="d.d_time" autocomplete="off" class="layui-input">
+    </div>
+  </div> 
+  		 <div class="layui-inline" style=" margin-left:14%; margin-top:10px;">
+    <label class="layui-form-label">内容</label>
+    <div class="layui-input-inline" style="width: 180px;">
+      <input type="text" lay-verify="required"   id="d_log" name="d.d_log" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+           <div class="layui-inline" style=" margin-left:42%; margin-top:10px;">
+    <div class="layui-input-inline" style="width: 180px;">
+      <input type="submit" lay-submit  lay-filter="edit"   value="提交 " class="layui-btn layui-btn-smal">
+      &nbsp;
+      <button type="reset"  class="layui-btn layui-btn-danger btn-reset"  >重置</button>
+    </div>
+    </div>  
+			          
+		</form>
+</div>
+
+
+
+<div id="box1" style="display: none" >
+		<form class="layui-form layui-form-pane" autocomplete="off">  
+		<input type="hidden" name="d.d_id" id="ad_id">
+				 <div class="layui-inline" style=" margin-left:14%; margin-top:20px;">
+    <label class="layui-form-label">排序</label>
+    <div class="layui-input-inline" style="width: 180px;">
+         <input type="text" lay-verify="required"   id="ad_time" name="d.d_time" autocomplete="off" class="layui-input">
+    </div>
+  </div> 
+  		 <div class="layui-inline" style=" margin-left:14%; margin-top:10px;">
+    <label class="layui-form-label">内容</label>
+    <div class="layui-input-inline" style="width: 180px;">
+      <input type="text" lay-verify="required"   id="ad_log" name="d.d_log" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+           <div class="layui-inline" style=" margin-left:42%; margin-top:10px;">
+    <div class="layui-input-inline" style="width: 180px;">
+      <input type="submit" lay-submit  lay-filter="edit1"   value="提交 " class="layui-btn layui-btn-smal">
+      &nbsp;
+      <button type="reset"  class="layui-btn layui-btn-danger btn-reset"  >重置</button>
+    </div>
+    </div>  
+			          
+		</form>
+</div>
+ 
+ <div >  
+ </div>
+</body>
+
+<script>
+
+
+
+
+
+	layui.use(['table','element','layedit','laydate','form'], function() {
+		var table = layui.table;
+		var form = layui.form;
+		var layedit = layui.layedit;
+		var laydate = layui.laydate;
+        form.render();
+		var w =  document.body.clientWidth*0.09;
+		laydate.render({
+			elem: '#test1',
+			  });
+		laydate.render({
+		    elem: '#test2',
+		  });
+		laydate.render({
+		    elem: '#d_time',
+		    position: 'fixed'
+		  });
+		laydate.render({
+		    elem: '#d_time1',
+		    position: 'fixed'
+		  });
+		table.render({
+			elem : '#showDevList' //指定原始表格元素选择器（推荐id选择器）
+			,
+			width:$(".layui-container").attr("width")*0.98,
+			
+			url : '${ctx}/devMange/devList',
+			id:'dev',
+			cols : [ [ //标题栏
+			{
+				field : 'd_id',
+				fixed : true,
+				width : w,
+				title : '日志编号'
+			},{
+				field : 'd_time',
+				width : w,
+				title : '时间'
+			},{
+				field : 'd_log',
+				width : w+w,
+				title : '开发日志'
+			},
+			{
+				width : 158,
+				title : '操作',
+				toolbar : '#CheckBar'
+			} ] ],
+			page : true,
+			limits : [ 10, 30, 60 ],
+			limit : 10
+		});
+		
+		table.render({
+			elem : '#showAdminDevList' //指定原始表格元素选择器（推荐id选择器）
+			,
+			width:$(".layui-container").attr("width")*0.98,
+			
+			url : '${ctx}/devMange/adminDevList',
+			id:'aDev',
+			cols : [ [ //标题栏
+			{
+				field : 'd_id',
+				fixed : true,
+				width : w,
+				title : '日志编号'
+			},{
+				field : 'd_time',
+				width : w,
+				title : '时间'
+			},{
+				field : 'd_log',
+				width : w+w,
+				title : '开发日志'
+			},
+			{
+				width : 158,
+				title : '操作',
+				toolbar : '#CheckBar1'
+			} ] ],
+			page : true,
+			limits : [ 10, 30, 60 ],
+			limit : 10
+		});
+		
+
+	
+		
+       	    form.on('submit(go)', function(data){	
+	    	$.post('${ctx}/devMange/addDev',data.field,function(res){
+	    		
+	    		if(res.msg==1){
+	    			layer.msg('添加成功', {
+	 	    		   icon:1,
+	 	     		   time: 1000 
+	 	     		 }, function(){
+	 	     			table.reload('dev'); 	     	
+	 	     		});
+	    		}else if(res.msg!=null){
+	    			layer.msg(res.msg, {
+	 	    		   icon:2,
+	 	     		   time: 1000 
+	 	     		 }, function(){
+	 	     			table.reload('dev');
+	 	     		});
+	    		}else{
+	    			layer.msg('请检查输入是否有误！');
+	    		}
+	    	});  	
+	    	$('#reset').click();
+	
+	    	return false;
+	    	});
+       	    
+       	    
+    	    
+    	    form.on('submit(go1)', function(data){	
+    	    	$.post('${ctx}/devMange/addAdminDev',data.field,function(res){
+    	    		
+    	    		if(res.msg==1){
+    	    			layer.msg('添加成功', {
+    	 	    		   icon:1,
+    	 	     		   time: 1000 
+    	 	     		 }, function(){
+    	 	     			table.reload('aDev'); 	     	
+    	 	     		});
+    	    		}else if(res.msg!=null){
+    	    			layer.msg(res.msg, {
+    	 	    		   icon:2,
+    	 	     		   time: 1000 
+    	 	     		 }, function(){
+    	 	     			table.reload('aDev');
+    	 	     		});
+    	    		}else{
+    	    			layer.msg('请检查输入是否有误！');
+    	    		}
+    	    	});  	
+    	    	$('#reset1').click();
+    	
+    	    	return false;
+    	    	});
+        
+       	    
+	    form.on('submit(edit)', function(data){
+ 	
+	    	$.post('${ctx}/devMange/editDev',data.field,function(res){
+	    		
+	    		if(res.msg==1){
+	    			layer.msg('修改成功', {
+	 	    		   icon:1,
+	 	     		   time: 1000 
+	 	     		 }, function(){
+	 	     			table.reload('dev'); 	     	
+	 	     		});
+	    		}else if(res.msg!=null){
+	    			layer.msg(res.msg, {
+	 	    		   icon:2,
+	 	     		   time: 1000 
+	 	     		 }, function(){
+	 	     			table.reload('dev');
+	 	     	    	
+	 	     		});
+	    		}else{
+	    			layer.msg('请检查输入是否有误！');
+	    		}
+	    	});  		
+	    	return false;
+	    	});
+	    
+	    form.on('submit(edit1)', function(data){
+	     	
+	    	$.post('${ctx}/devMange/editAdminDev',data.field,function(res){
+	    		
+	    		if(res.msg==1){
+	    			layer.msg('修改成功', {
+	 	    		   icon:1,
+	 	     		   time: 1000 
+	 	     		 }, function(){
+	 	     			table.reload('aDev');    	
+	 	     		});
+	    		}else if(res.msg!=null){
+	    			layer.msg(res.msg, {
+	 	    		   icon:2,
+	 	     		   time: 1000 
+	 	     		 }, function(){
+	 	     			table.reload('aDev');
+	 	     	    	
+	 	     		});
+	    		}else{
+	    			layer.msg('请检查输入是否有误！');
+	    		}
+	    	});  		
+	    	return false;
+	    	});
+		 
+		table.on('tool(dlist)', function(obj) {
+			var data = obj.data;
+			var id = data.d_id;
+		
+			if (obj.event === 'detail') {
+				layer.open({
+					type : 1,
+					title : '编辑日志', // [可选]
+					content : $('#box'), // 对话框中的内容部分
+					area : [ '435px', '240px' ], // 对话框的大小 [可选]
+					shadeClose : true,
+					shade:0.00001,
+					success: function(layero, index){
+					    $('#d_id').val(data.d_id);
+					    $('#d_time').val(data.d_time);
+					    $('#d_log').val(data.d_log);
+					  }
+				});
+				
+				
+			}else if (obj.event === 'delete') {
+              
+			
+				var url = "${ctx}/devMange/deleteDev/" + id;
+				layer.confirm('真的删除行么', {
+					title : '提示',
+					shade : 0,
+				}, function(index) {
+					$.ajax({
+						type : 'post',
+						url : url,
+						success : function(msg) {
+
+							if (msg.msg != null) {
+								layer.msg(msg.msg, {
+									icon : 1,
+									time : 1000
+								}, function() {
+									table.reload('dev');	
+								});
+							}
+
+						}
+					});
+				})
+
+			}
+		});
+		
+		
+		table.on('tool(adlist)', function(obj) {
+			var data = obj.data;
+			var id = data.d_id;
+		
+			if (obj.event === 'detail') {
+				layer.open({
+					type : 1,
+					title : '编辑日志', // [可选]
+					content : $('#box1'), // 对话框中的内容部分
+					area : [ '435px', '240px' ], // 对话框的大小 [可选]
+					shadeClose : true,
+					shade:0.00001,
+					success: function(layero, index){
+					    $('#ad_id').val(data.d_id);
+					    $('#ad_time').val(data.d_time);
+					    $('#ad_log').val(data.d_log);
+					  }
+				});
+				
+			}else if (obj.event === 'delete') {
+              
+			
+				var url = "${ctx}/devMange/deleteAdminDev/" + id;
+				layer.confirm('真的删除行么', {
+					title : '提示',
+					shade : 0,
+				}, function(index) {
+					$.ajax({
+						type : 'post',
+						url : url,
+						success : function(msg) {
+
+							if (msg.msg != null) {
+								layer.msg(msg.msg, {
+									icon : 1,
+									time : 1000
+								}, function() {
+									table.reload('aDev');
+								});
+							}
+
+						}
+					});
+				})
+
+			}
+		});
+
+	});
+</script> 
+
+<script type="text/html" id="CheckBar">
+  <a class="layui-btn layui-btn-mini" lay-event="detail">编辑</a>
+  <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="delete">删除</a>
+</script>
+
+<script type="text/html" id="CheckBar1">
+  <a class="layui-btn layui-btn-mini" lay-event="detail">编辑</a>
+  <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="delete">删除</a>
+</script>
+</html>
