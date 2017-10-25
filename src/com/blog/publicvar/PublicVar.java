@@ -5,6 +5,7 @@ import com.blog.dev.AdminDevService;
 import com.blog.dev.DevService;
 import com.blog.friendlylink.FriendlyLinkService;
 import com.blog.resource.ResourceService;
+import com.blog.test.TestService;
 import com.blog.tips.TipsService;
 import com.blog.type.TypeService;
 import com.blog.user.UserInfoService;
@@ -20,5 +21,6 @@ public class PublicVar {
 	public AdminDevService adminDev = new AdminDevService();
 	public FriendlyLinkService flink = new FriendlyLinkService();
 	public ResourceService resource = new ResourceService();
+	public TestService test = new TestService();
     
 }

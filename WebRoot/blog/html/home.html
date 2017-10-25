@@ -29,13 +29,13 @@
     <nav class="blog-nav layui-header">
         <div class="blog-container">
             <!-- QQ互联登陆 -->
-            <a href="javascript:;" class="blog-user">
-                <i class="fa fa-qq"></i>
-            </a>
-            <a href="javascript:;" class="blog-user layui-hide">
-                <img src="${ctx}/blog/images/Absolutely.jpg" alt="Absolutely" title="Absolutely" />
-            </a>
-            <!-- 不落阁 -->
+<!--             <a href="javascript:;" class="blog-user"> -->
+<!--                 <i class="fa fa-qq"></i> -->
+<!--             </a> -->
+<!--             <a href="javascript:;" class="blog-user layui-hide"> -->
+<!--                 <img src="${ctx}/blog/images/Absolutely.jpg" alt="Absolutely" title="Absolutely" /> -->
+<!--             </a> -->
+            <!-- 点点blog -->
             <a class="blog-logo" href="${ctx}/blog" style="font-family: inherit;">点点blog</a>
             <!-- 导航菜单 -->
             <ul class="layui-nav" lay-filter="nav">
@@ -94,10 +94,10 @@
                     <div class="blogerinfo shadow ">
                        <#list ilist as i>
                         <div class="blogerinfo-figure">
-                            <img src="${ctx}${(i.i_imgPath)!''}" alt="Absolutely" />
+                            <img width=67 width=64 src="${(user.i_imgSrc)!''}" alt="${(user.i_userName)!' '}" />
                         </div>
                      
-                        <p class="blogerinfo-nickname">${(i.i_userName)!' '}_</p>
+                        <p class="blogerinfo-nickname">${(user.i_userName)!' '}_</p>
                         <p class="blogerinfo-introduce">一枚90后程序员，JAVA开发工程师</p>
                         <p class="blogerinfo-location"><i class="fa fa-location-arrow"></i>&nbsp;河南 - 平顶山</p>
                         <hr />

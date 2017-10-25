@@ -83,7 +83,7 @@
 					<div class="layui-tab-item layui-show ">
 						<div class="aboutinfo ">
 							<div class="aboutinfo-figure">
-								<img src="${ctx}/assets/logo.png" alt="点点blog" />
+								<img width="67px" src="${ctx}/assets/logo.png" alt="点点blog" />
 							</div>
 							<p class="aboutinfo-nickname">点点blog</p>
 							<p class="aboutinfo-introduce">一个JAVA程序员的个人博客，记录博主学习和成长之路，分享JAVA方面技术和源码</p>
@@ -123,10 +123,10 @@
 					<div class="layui-tab-item">
 						<div class="aboutinfo  ">
 							<div class="aboutinfo-figure">
-								<img src="${ctx}/upload/xay_p1.jpg" alt="Xay_" />
+								<img width="67px" src="${(user.i_imgSrc)}" alt="Xay_" />
 							</div>
-							<p class="aboutinfo-nickname">Xay_</p>
-							<p class="aboutinfo-introduce">一枚90后程序员，JAVA开发工程师，主攻JFIANL后台开发，略懂Web前端</p>
+							<p class="aboutinfo-nickname">${(user.i_userName)!' '}_</p>
+							<p class="aboutinfo-introduce">一枚90后程序员，JAVA开发工程师，略懂Web前端</p>
 							<p class="aboutinfo-location">
 								<i class="fa fa-location-arrow"></i>&nbsp;河南 - 平顶山
 							</p>
@@ -176,23 +176,20 @@
 								<legend>Friend Link</legend>
 								<div class="layui-field-box">
 									<ul class="friendlink">
-										<li><a target="_blank" href="http://www.layui.com/"
-											title="Layui" class="friendlink-item">
+									
+									
+									<#list flist as f>
+										<li><a target="_blank" href="${(f.x_linkUrl)!''}"
+											title="${(f.x_linkName)!''}" class="friendlink-item">
 												<p class="friendlink-item-pic">
-													<img src="http://www.layui.com/favicon.ico" alt="Layui" />
+													<img src="${(f.x_linkImgSrc)!''}" alt="${(f.x_linkName)!''}" />
 												</p>
-												<p class="friendlink-item-title">Layui</p>
-												<p class="friendlink-item-domain">layui.com</p>
+												<p class="friendlink-item-title">${(f.x_linkName)!''}</p>
+												<p class="friendlink-item-domain">${(f.x_linkDescription)!''}</p>
 										</a></li>
-										<li><a target="_blank" href="http://www.jfinal.com/"
-											title="jfinal" class="friendlink-item">
-												<p class="friendlink-item-pic">
-													<img src="http://www.jfinal.com/assets/img/favicon.ico"
-														alt="JFINAL" />
-												</p>
-												<p class="friendlink-item-title">jfinal</p>
-												<p class="friendlink-item-domain">jfinal.com</p>
-										</a></li>
+										</#list>
+										
+										
 									</ul>
 								</div>
 							</fieldset>

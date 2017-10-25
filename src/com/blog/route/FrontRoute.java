@@ -5,6 +5,7 @@ import com.blog.article.ArticleController;
 import com.blog.index.BlogController;
 import com.blog.index.IndexController;
 import com.blog.resource.ResourceController;
+import com.blog.test.TestController;
 import com.blog.timeLine.TimelineController;
 import com.blog.ueditor.UEditorController;
 import com.jfinal.config.Routes;
@@ -22,6 +23,7 @@ public class FrontRoute extends Routes {
            add("/timeline", TimelineController.class, "/blog/html");
            add("/about", AboutController.class, "/blog/html");
            add("/ue", UEditorController.class);
+           add("/test", TestController.class,"/test");
          
            
            

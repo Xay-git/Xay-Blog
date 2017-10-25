@@ -7,6 +7,7 @@ public class BlogController extends Controller{
 	PublicVar p = new PublicVar();
         
 	public void index(){
+		setAttr("user",p.userInfo.userInfo());
 		setAttr("alist", p.article.articleAList());
 		setAttr("tlist",p.tips.tipsList());
 		setAttr("ilist",p.userInfo.userInfoList());

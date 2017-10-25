@@ -8,6 +8,7 @@ import com.blog.publicvar.PublicVar;
 import com.blog.util.LayuiPage;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
+import com.jfinal.upload.UploadFile;
 
 public class ArticleMangeController extends Controller {
 	Map map = new HashMap();
@@ -51,16 +52,17 @@ public class ArticleMangeController extends Controller {
 	public void saveArticle() {
 		XArticle article = getModel(XArticle.class, "a");
 		String editorValue = getPara("editorValue");
-		String str[];
-		try {
-			str = editorValue.split("src=")[1].split("\"");
-			String thumbnail = str[1];
-			article.setAThumbnail(thumbnail);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			article.setAThumbnail("/upload/p1.jpg").setAArticle(editorValue).setAUsername("xay").save();
-		}
+//		String str[];
+//		try {
+//			str = editorValue.split("src=")[1].split("\"");
+//			String thumbnail = str[1];
+//			article.setAThumbnail(thumbnail);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			article.setAThumbnail("/upload/p1.jpg");
+//		}
+		article.setAArticle(editorValue).setAUsername("xay").save();
 		forwardAction("/articleMange");
 	}
 
@@ -82,14 +84,23 @@ public class ArticleMangeController extends Controller {
 	}
 
 	public void updataArticle() {
+		System.out.println(getPara("mini"));
 		try {
-			getModel(XArticle.class, "a").update();
+			getModel(XArticle.class, "a").setAArticle(getPara("editorValue")).update();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("编辑失败！");
 		}
 		forwardAction("/articleMange");
+	}
+	
+	public void editThumbnail(){
+		UploadFile f = getFile();
+        String fileName = f.getFileName();
+        map.put("src", "/upload/"+fileName);
+        renderJson(map);
+		
 	}
 
 }

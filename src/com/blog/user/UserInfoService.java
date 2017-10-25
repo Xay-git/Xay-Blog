@@ -10,4 +10,8 @@ public static final XUserinfo dao = new XUserinfo().dao();
 	public List<XUserinfo> userInfoList(){
 		return dao.find("select * from x_userInfo;");
 	}
+	
+	public XUserinfo userInfo(){
+		return dao.findFirst("select * from x_userInfo where i_userName = ?","xay");
+	}
 }

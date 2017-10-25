@@ -21,6 +21,7 @@ public class _MappingKit {
 		arp.addMapping("x_dev", "d_id", XDev.class);
 		arp.addMapping("x_friendlylink", "x_linkId", XFriendlylink.class);
 		arp.addMapping("x_resource", "r_id", XResource.class);
+		arp.addMapping("x_test", "id", XTest.class);
 		arp.addMapping("x_tips", "t_id", XTips.class);
 		arp.addMapping("x_typenav", "t_id", XTypenav.class);
 		arp.addMapping("x_user", "x_id", XUser.class);

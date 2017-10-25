@@ -36,4 +36,22 @@ public abstract class BaseXFriendlylink<M extends BaseXFriendlylink<M>> extends 
 		return getStr("x_linkUrl");
 	}
 
+	public M setXLinkimgsrc(java.lang.String xLinkimgsrc) {
+		set("x_linkImgSrc", xLinkimgsrc);
+		return (M)this;
+	}
+
+	public java.lang.String getXLinkimgsrc() {
+		return getStr("x_linkImgSrc");
+	}
+
+	public M setXLinkdescription(java.lang.String xLinkdescription) {
+		set("x_linkDescription", xLinkdescription);
+		return (M)this;
+	}
+
+	public java.lang.String getXLinkdescription() {
+		return getStr("x_linkDescription");
+	}
+
 }

@@ -1,116 +1,156 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta name="Generator" content="EditPlus®">
-    <meta name="Author" content="梦想星辰大海">
-    <meta name="Keywords" content="">
-    <meta name="Description" content="">
-    <title>点点blog后台</title>
-    <link rel="shortcut icon" href="${ctx}/assets/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="${ctx}/admin/layui/css/layui.css">
-    <style>
-   .layui-nav-tree a{
-       padding-left: 25% !important;
-     }
-    </style>
+	<meta charset="utf-8">
+	<title>点点&nbsp;Admin</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta http-equiv="Access-Control-Allow-Origin" content="*">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="shortcut icon" href="${ctx}/assets/logo.png" type="image/x-icon">
+	<link rel="stylesheet" href="${ctx}/admin/layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="//at.alicdn.com/t/font_tnyc012u2rlwstt9.css" media="all" />
+	<link rel="stylesheet" href="${ctx}/admin/css/main.css" media="all" />
 </head>
+<body class="main_body">
+	<div class="layui-layout layui-layout-admin">
+		<!-- 顶部 -->
+		<div class="layui-header header">
+			<div class="layui-main">
+				<a target="_blank" href="${ctx}/blog" class="logo">点点&nbsp;Admin</a>
+				<!-- 显示/隐藏菜单 -->
+				<a href="javascript:;" class="iconfont hideMenu icon-menu1"></a>
+				<!-- 搜索 -->
+<!-- 				<div class="layui-form component"> -->
+<!-- 			        <select name="modules" lay-verify="required" lay-search=""> -->
+<!-- 						<option value="">直接选择或搜索选择</option> -->
+<!-- 						<option value="1">layer</option> -->
+<!-- 						<option value="2">form</option> -->
+<!-- 						<option value="3">layim</option> -->
+<!-- 						<option value="4">element</option> -->
+<!-- 						<option value="5">laytpl</option> -->
+<!-- 						<option value="6">upload</option> -->
+<!-- 						<option value="7">laydate</option> -->
+<!-- 						<option value="8">laypage</option> -->
+<!-- 						<option value="9">flow</option> -->
+<!-- 						<option value="10">util</option> -->
+<!-- 						<option value="11">code</option> -->
+<!-- 						<option value="12">tree</option> -->
+<!-- 						<option value="13">layedit</option> -->
+<!-- 						<option value="14">nav</option> -->
+<!-- 						<option value="15">tab</option> -->
+<!-- 						<option value="16">table</option> -->
+<!-- 						<option value="17">select</option> -->
+<!-- 						<option value="18">checkbox</option> -->
+<!-- 						<option value="19">switch</option> -->
+<!-- 						<option value="20">radio</option> -->
+<!-- 			        </select> -->
+<!-- 			        <i class="layui-icon">&#xe615;</i> -->
+<!-- 			    </div> -->
+			    <!-- 天气信息 -->
+			    <div class="weather" pc>
+			    	<div id="tp-weather-widget"></div>
+					<script>(function(T,h,i,n,k,P,a,g,e){g=function(){P=h.createElement(i);a=h.getElementsByTagName(i)[0];P.src=k;P.charset="utf-8";P.async=1;a.parentNode.insertBefore(P,a)};T["ThinkPageWeatherWidgetObject"]=n;T[n]||(T[n]=function(){(T[n].q=T[n].q||[]).push(arguments)});T[n].l=+new Date();if(T.attachEvent){T.attachEvent("onload",g)}else{T.addEventListener("load",g,false)}}(window,document,"script","tpwidget","//widget.seniverse.com/widget/chameleon.js"))</script>
+					<script>tpwidget("init", {
+					    "flavor": "slim",
+					    "location": "WX4FBXXFKE4F",
+					    "geolocation": "enabled",
+					    "language": "zh-chs",
+					    "unit": "c",
+					    "theme": "chameleon",
+					    "container": "tp-weather-widget",
+					    "bubble": "disabled",
+					    "alarmType": "badge",
+					    "color": "#FFFFFF",
+					    "uid": "U9EC08A15F",
+					    "hash": "039da28f5581f4bcb5c799fb4cdfb673"
+					});
+					tpwidget("show");</script>
+			    </div>
+			    
+			    
+			    <!-- 顶部右侧菜单 -->
+			    <ul class="layui-nav top_menu">
+			     <li  class="layui-nav-item" id="home">
+						<a href="javascript:;"><i class="layui-icon">&#xe609;</i><cite>前台</cite></a>
+			      </li>
+			        
+			        
+			        
+			        
+			    	<li class="layui-nav-item showNotice" id="showNotice" pc>
+						<a href="javascript:;"><i class="iconfont icon-gonggao"></i><cite>系统公告</cite></a>
+					</li>
+			    	<li class="layui-nav-item" mobile>
+			    		<a href="javascript:;" class="mobileAddTab" data-url="page/user/changePwd.html"><i class="iconfont icon-shezhi1" data-icon="icon-shezhi1"></i><cite>设置</cite></a>
+			    	</li>
+			    	<li class="layui-nav-item" mobile>
+			    		<a href="page/login/login.html" class="signOut"><i class="iconfont icon-loginout"></i> 退出</a>
+			    	</li>
+<!-- 					<li class="layui-nav-item lockcms" pc> -->
+<!-- 						<a href="javascript:;"><i class="iconfont icon-lock1"></i><cite>锁屏</cite></a> -->
+<!-- 					</li> -->
+					<li class="layui-nav-item" pc>
+						<a href="javascript:;">
+							<img src="${(user.i_imgSrc)!' '}" class="layui-circle" width="35" height="35">
+							<cite>${(user.i_userName)!' '}</cite>
+						</a>
+						<dl class="layui-nav-child">
+							<dd><a href="javascript:;" data-url="${ctx}/admin/page/user/userInfo.html"><i class="iconfont icon-zhanghu" data-icon="icon-zhanghu"></i><cite>个人资料</cite></a></dd>
+							<dd><a href="javascript:;" data-url="${ctx}/admin/page/user/changePwd.html"><i class="iconfont icon-shezhi1" data-icon="icon-shezhi1"></i><cite>修改密码</cite></a></dd>
+							<dd><a href="javascript:;" class="changeSkin"><i class="iconfont icon-huanfu"></i><cite>更换皮肤</cite></a></dd>
+							<dd><a href="${ctx}/admin/page/login/login.html" class="signOut"><i class="iconfont icon-loginout"></i><cite>退出</cite></a></dd>
+						</dl>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- 左侧导航 -->
+		<div class="layui-side layui-bg-black">
+			<div class="user-photo">
+				<a class="img" title="我的头像" ><img src="${(user.i_imgSrc)!' '}"></a>
+				<p>欢迎回来 <span style="font-size:16px;" class="userName">${(user.i_userName)!' '}</span></p>
+			</div>
+			<div class="navBar layui-side-scroll"></div>
+		</div>
+		<!-- 右侧内容 -->
+		<div class="layui-body layui-form">
+			<div class="layui-tab marg0" lay-filter="bodyTab" id="top_tabs_box">
+				<ul class="layui-tab-title top_tab" id="top_tabs">
+					<li class="layui-this" lay-id=""><i class="iconfont icon-computer"></i> <cite>后台首页</cite></li>
+				</ul>
+				<ul class="layui-nav closeBox">
+				  <li class="layui-nav-item">
+				    <a href="javascript:;"><i class="iconfont icon-caozuo"></i> 页面操作</a>
+				    <dl class="layui-nav-child">
+					  <dd><a href="javascript:;" class="refresh refreshThis"><i class="layui-icon">&#x1002;</i> 刷新当前</a></dd>
+				      <dd><a href="javascript:;" class="closePageOther"><i class="iconfont icon-prohibit"></i> 关闭其他</a></dd>
+				      <dd><a href="javascript:;" class="closePageAll"><i class="iconfont icon-guanbi"></i> 关闭全部</a></dd>
+				    </dl>
+				  </li>
+				</ul>
+				<div class="layui-tab-content clildFrame">
+					<div class="layui-tab-item layui-show">
+						<iframe src="${ctx}/admin/page/main.html"></iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 底部 -->
+		<div class="layui-footer footer">
+			<p>copyright @2017 点点&nbsp;Admin</p>
+		</div>
+	</div>
+	
+	<!-- 移动导航 -->
+	<div class="site-tree-mobile layui-hide"><i class="layui-icon">&#xe602;</i></div>
+	<div class="site-mobile-shade"></div>
 
-<body>
-    <!-- 布局容器 -->
-    <div class="layui-layout layui-layout-admin">
-        <!-- 头部 -->
-        <div class="layui-header">
-            <div class="layui-main">
-                <!-- logo -->
-                <a href="${ctx}/admin" target="_blank" style="color: #c2c2c2; font-size: 18px; line-height: 60px;">点点blog后台</a>
-                <!-- 水平导航 -->
-                <ul class="layui-nav" style="position: absolute; top: 0; right: 0; background: none;">
-                    <li class="layui-nav-item">
-                        <a target="_blank" href="${ctx}/blog">
-                            前台
-                        </a>
-                    </li>
-                    <li class="layui-nav-item">
-                        <a href="javascript:;">
-                           xay
-                        </a>
-                        <dl class="layui-nav-child">
-                            <dd>
-                                <a href="javascript:;">
-                                    个人信息
-                                </a>
-                            </dd>
-                            <dd>
-                                <a href="javascript:;">
-                                    修改密码
-                                </a>
-                            </dd>
-                            <dd>
-                                <a href="javascript:;">
-                                    退出登录
-                                </a>
-                            </dd>
-                        </dl>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- 侧边栏 -->
-        <div class="layui-side layui-bg-black">
-            <div class="layui-side-scroll">
-                <ul class="layui-nav layui-nav-tree" lay-filter="left-nav" style="border-radius: 0;">
-                </ul>
-            </div>
-        </div>
-
-        <!-- 主体 -->
-        <div class="layui-body">
-            <!-- 顶部切换卡 -->
-            <div class="layui-tab layui-tab-brief" lay-filter="top-tab" lay-allowClose="true" style="margin: 0;">
-                <ul class="layui-tab-title"></ul>
-                <div class="layui-tab-content"></div>
-            </div>
-        </div>
-
-        <!-- 底部 -->
-        <div class="layui-footer" style="text-align: center; line-height: 44px;">
-            Copyright © 2017 <a href="http://www.kiscms.com" target="_blank">kiscms</a> Powered by 梦想星辰大海
-        </div>
-    </div>
-
-    <script type="text/javascript" src="${ctx}/admin/layui/layui.js"></script>
-    <script type="text/javascript">
-        /**
-         * 对layui进行全局配置
-         */
-        layui.config({
-            base: '${ctx}/admin/js/'
-        });
-
-        /**
-         * 初始化整个cms骨架
-         */
-        layui.use(['cms'], function() {
-            var cms = layui.cms('left-nav', 'top-tab');
-
-            cms.addNav([
-                {id: 1, pid: 0, node: '欢迎', url: '${ctx}/admin/main'},
-                {id: 2, pid: 0, node: 'blog管理', url: ''},    
-                {id: 3, pid: 2, node: '文章管理', url: '${ctx}/articleMange'},
-                {id: 4, pid: 2, node: '文章分类 ', url: '${ctx}/typeMange'},
-                {id: 5, pid: 2, node: '网站公告', url: '${ctx}/tipsMange'},
-                {id: 6, pid: 2, node: '开发日志', url: '${ctx}/devMange'},
-                {id: 7, pid: 0, node: '用户管理', url: ''}, 
-                {id: 8, pid: 7, node: '个人信息', url: ''},
-            ], 0, 'id', 'pid', 'node', 'url');
-
-            cms.bind(60 + 41 + 20 + 44); //头部高度 + 顶部切换卡标题高度 + 顶部切换卡内容padding + 底部高度
-
-            cms.clickLI(0);
-        });
-    </script>
+	<script type="text/javascript" src="${ctx}/admin/layui/layui.js"></script>
+	<script type="text/javascript" src="${ctx}/admin/js/leftNav.js"></script>
+	<script type="text/javascript" src="${ctx}/admin/js/index.js"></script>
 </body>
 </html>
