@@ -4,13 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.blog.model.XUserinfo;
-import com.blog.publicvar.PublicVar;
+import com.blog.publicservice.PublicService;
 import com.jfinal.core.Controller;
 import com.jfinal.upload.UploadFile;
 
 public class UserInfoController extends Controller{
 	Map map = new HashMap();
-	PublicVar p = new PublicVar();
+	PublicService p = new PublicService();
 	public void index(){
 		setAttr("ilist", p.userInfo.userInfoList());
 		renderFreeMarker("userInfo.html");

@@ -1,14 +1,14 @@
 package com.blog.resource;
 
-import com.blog.publicvar.PublicVar;
+import com.blog.publicservice.PublicService;
 import com.jfinal.core.Controller;
 
 public class ResourceController extends Controller{
-	PublicVar p = new PublicVar();
+	PublicService p = new PublicService();
 	
 	public void index(){
 		setAttr("rlist",p.resource.resourceList());		
-		renderFreeMarker("/blog/html/resource.html");
+		renderFreeMarker("resource.html");
 	}
 	
 

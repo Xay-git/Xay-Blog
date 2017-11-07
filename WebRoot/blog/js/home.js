@@ -6,8 +6,41 @@
 
 */
 
-layui.use('jquery', function () {
+layui.use(['jquery','flow','laytpl'], function () {
     var $ = layui.jquery;
+    var flow = layui.flow;
+    var laytpl = layui.laytpl;
+    
+    flow.load({
+      elem: '#flow' //指定列表容器
+      ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+        var lis = [];
+        
+		        //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+		        $.get('../blog/flowArticle/'+page, function(res){
+		 
+		          //假设你的列表返回在data集合中
+		        	var data = res;	
+		            var getTpl = $('#flowdemo').html();
+		            laytpl(getTpl).render(data, function(html){
+		            	 lis.push(html);
+		            })
+		             next(lis.join(''), page< res.totalPage);  
+		            
+		        });
+      }
+    });
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     $(function () {
         //播放公告
         playAnnouncement(3000);
@@ -26,6 +59,8 @@ layui.use('jquery', function () {
     }
     //画canvas
     DrawCanvas();
+    
+    
 });
 
 function DrawCanvas() {
@@ -207,3 +242,10 @@ function resizeCanvas() {
     canvas.width = window.document.body.clientWidth;
     canvas.height = window.innerHeight * 1 / 3;
 }
+
+
+$(document).ready(function(){
+	$('.blog-main-right').addClass("animated fadeInRight");
+	$('.blog-main-left').addClass("animated fadeInLeft");
+    $('.home-tips').addClass("animated fadeInLeft");
+})

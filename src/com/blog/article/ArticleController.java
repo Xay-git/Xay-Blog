@@ -2,12 +2,12 @@ package com.blog.article;
 
 import com.blog.model.XArticle;
 import com.blog.model.XTypenav;
-import com.blog.publicvar.PublicVar;
+import com.blog.publicservice.PublicService;
 import com.jfinal.core.Controller;
 
 public class ArticleController extends Controller {
 
-	PublicVar p = new PublicVar();
+	PublicService p = new PublicService();
 
 	public void index() {
 		setAttr("alist", p.article.articleDList());
@@ -21,6 +21,12 @@ public class ArticleController extends Controller {
 		alist.setAViews(alist.getAViews() + 1).setACreatetime(alist.getACreatetime()).update();
 		setAttr("a", alist);
 		ArticleController.this.articlePublic();
+	
+		XArticle last = p.article.selectArticleLastById(id);
+		XArticle after = p.article.selectArticleAfterById(id);
+		
+		setAttr("last", last);
+		setAttr("after", after);
 		renderFreeMarker("detail.html");
 	}
 
@@ -43,7 +49,7 @@ public class ArticleController extends Controller {
 
 	public void articlePublic() {
 		setAttr("tlist", p.typeNav.typeNavList());
-		setAttr("vlist", p.article.viewsList(1, 6));
+		setAttr("vlist", p.article.viewsList(1, 10));
 		setAttr("rlist", p.article.randArticle());
 		renderFreeMarker("public/articlePublic.html");
 	}

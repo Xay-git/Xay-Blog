@@ -18,6 +18,15 @@ public abstract class BaseXUser<M extends BaseXUser<M>> extends Model<M> impleme
 		return getInt("x_id");
 	}
 
+	public M setXAccountnumber(java.lang.String xAccountnumber) {
+		set("x_accountNumber", xAccountnumber);
+		return (M)this;
+	}
+
+	public java.lang.String getXAccountnumber() {
+		return getStr("x_accountNumber");
+	}
+
 	public M setXUsername(java.lang.String xUsername) {
 		set("x_userName", xUsername);
 		return (M)this;

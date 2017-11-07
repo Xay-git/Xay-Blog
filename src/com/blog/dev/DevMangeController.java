@@ -7,14 +7,14 @@ import com.blog.model.XAdmindev;
 import com.blog.model.XArticle;
 import com.blog.model.XDev;
 import com.blog.model.XTips;
-import com.blog.publicvar.PublicVar;
+import com.blog.publicservice.PublicService;
 import com.blog.util.LayuiPage;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
 
 public class DevMangeController extends Controller{
 	Map map = new HashMap();
-	PublicVar p = new PublicVar();
+	PublicService p = new PublicService();
 	public void index(){
 		renderFreeMarker("devList.html");
 	}

@@ -1,6 +1,6 @@
 package com.blog.common;
 
-import com.blog.interceptor.UserInterceptor;
+import com.blog.interceptor.GlobalInterceptor;
 import com.blog.model._MappingKit;
 import com.blog.route.AdminRoute;
 import com.blog.route.FrontRoute;
@@ -68,7 +68,8 @@ public class BlogConfig extends JFinalConfig {
 	@Override
 	public void configInterceptor(Interceptors me) {
 		// TODO Auto-generated method stub
-        me.add(new UserInterceptor() );
+        me.add(new GlobalInterceptor() );
+        
 	}
 
 	/**

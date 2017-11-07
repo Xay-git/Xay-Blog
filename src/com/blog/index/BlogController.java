@@ -1,18 +1,25 @@
 package com.blog.index;
 
-import com.blog.publicvar.PublicVar;
+import com.blog.model.XArticle;
+import com.blog.publicservice.PublicService;
 import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Page;
 
 public class BlogController extends Controller{
-	PublicVar p = new PublicVar();
+	PublicService p = new PublicService();
         
 	public void index(){
 		setAttr("user",p.userInfo.userInfo());
-		setAttr("alist", p.article.articleAList());
 		setAttr("tlist",p.tips.tipsList());
 		setAttr("ilist",p.userInfo.userInfoList());
 		BlogController.this.right();
 		renderFreeMarker("home.html");
+	}
+	
+	public void flowArticle(){
+		Integer page = getParaToInt(0);
+		Page<XArticle> article = p.article.pageArticleAList(page, 10);
+		renderJson(article);
 	}
 	
 	public void right(){

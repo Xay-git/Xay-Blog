@@ -6,14 +6,14 @@ import java.util.Map;
 import com.blog.model.XArticle;
 import com.blog.model.XTips;
 import com.blog.model.XTypenav;
-import com.blog.publicvar.PublicVar;
+import com.blog.publicservice.PublicService;
 import com.blog.util.LayuiPage;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
 
 public class TipsMangeController extends Controller{
 	Map map = new HashMap();
-	PublicVar p = new PublicVar();
+	PublicService p = new PublicService();
 	LayuiPage<XTips> layuiPage = new LayuiPage<XTips>();
 	public void index(){
 		renderFreeMarker("tipsList.html");

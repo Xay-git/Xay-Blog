@@ -17,13 +17,13 @@ public class FrontRoute extends Routes {
 	public void config() {
 		// TODO Auto-generated method stub
 		   add("/", IndexController.class);
-           add("/blog", BlogController.class, "/blog/html");
-           add("/article", ArticleController.class, "/blog/html");
-           add("/resource", ResourceController.class, "/blog/html");
-           add("/timeline", TimelineController.class, "/blog/html");
-           add("/about", AboutController.class, "/blog/html");
+           add("/blog", BlogController.class, "/blog/html/home");
+           add("/article", ArticleController.class, "/blog/html/article");
+           add("/resource", ResourceController.class, "/blog/html/resource");
+           add("/timeline", TimelineController.class, "/blog/html/timeline");
+           add("/about", AboutController.class, "/blog/html/about");
            add("/ue", UEditorController.class);
-           add("/test", TestController.class,"/test");
+           add("/test", TestController.class,"blog/html");
          
            
            

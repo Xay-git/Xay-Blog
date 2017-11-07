@@ -1,5 +1,5 @@
 /**
- * @fileoverview Main function src.
+view.html(html) * @fileoverview Main function src.
  */
 
 // HTML5 Shiv. Must be in <head> to support older browsers.

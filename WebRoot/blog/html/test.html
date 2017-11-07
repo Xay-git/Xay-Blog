@@ -3,14 +3,70 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript"src="${ctx}/assets/jquery/jquery-3.2.1.min.js"></script>
+<link rel="stylesheet" href="${ctx}/layui/css/layui.css">
+<script src="${ctx}/layui/layui.js"></script>
+<style>
+#aaa{
+background:#98bf21;height:100px;width:100px;position:absolute;
+display: none;
+}
+
+</style>
 </head>
 <body>
-
-
-
-   <#list dlist as d>
-                            <dt>${(d.d_devTime)!''}</dt>
-                            <dd>${(d.d_devLog)!''}</dd>
-                           </#list>
+<p2>这是test页面</p2>
+<button>开始动画</button>
+<div id="view"></div>
+<div>
+<div id="aaa">aaa</div>
+<#list flist as f>
+  <img src="">
+</#list>
+</div>
 </body>
+
+<script>
+$("button").click(function(){
+	  $("#aaa").fadeIn();
+	});
+
+layui.use('laytpl', function(){
+	 var laytpl = layui.laytpl;
+	 
+	 function getContent(){
+		    $.ajax({
+					type : 'post',
+					url : '../about/view',
+					success : function(res) {
+						$.each(res, function(index, item) {
+							var data = res;
+                            var getTpl = $('#demo').html();
+                            var view = $('#view');
+							 laytpl(getTpl).render(data, function(html){
+								 view.html(html);
+								});    	
+						});
+					  }
+				   });
+		}
+
+	
+	 getContent();
+	 
+	 
+
+	});
+</script>
+
+
+<script id="demo" type="text/html">
+   {{#  layui.each(d, function(index, item){ }}
+    <li>
+      <div>{{item.m_id}}</div>
+      <div>{{item.m_content}}</div>
+      <div>{{item.m_time}}</div>
+    </li>
+  {{#  }); }}
+</script>
 </html>

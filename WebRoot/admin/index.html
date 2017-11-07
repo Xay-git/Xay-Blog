@@ -14,6 +14,7 @@
 	<link rel="stylesheet" href="${ctx}/admin/layui/css/layui.css" media="all" />
 	<link rel="stylesheet" href="//at.alicdn.com/t/font_tnyc012u2rlwstt9.css" media="all" />
 	<link rel="stylesheet" href="${ctx}/admin/css/main.css" media="all" />
+	
 </head>
 <body class="main_body">
 	<div class="layui-layout layui-layout-admin">
@@ -102,7 +103,7 @@
 							<dd><a href="javascript:;" data-url="${ctx}/admin/page/user/userInfo.html"><i class="iconfont icon-zhanghu" data-icon="icon-zhanghu"></i><cite>个人资料</cite></a></dd>
 							<dd><a href="javascript:;" data-url="${ctx}/admin/page/user/changePwd.html"><i class="iconfont icon-shezhi1" data-icon="icon-shezhi1"></i><cite>修改密码</cite></a></dd>
 							<dd><a href="javascript:;" class="changeSkin"><i class="iconfont icon-huanfu"></i><cite>更换皮肤</cite></a></dd>
-							<dd><a href="${ctx}/admin/page/login/login.html" class="signOut"><i class="iconfont icon-loginout"></i><cite>退出</cite></a></dd>
+							<dd><a id="logout" href="javascript:;" class="signOut"><i class="iconfont icon-loginout"></i><cite>退出</cite></a></dd>
 						</dl>
 					</li>
 				</ul>
@@ -148,7 +149,6 @@
 	<!-- 移动导航 -->
 	<div class="site-tree-mobile layui-hide"><i class="layui-icon">&#xe602;</i></div>
 	<div class="site-mobile-shade"></div>
-
 	<script type="text/javascript" src="${ctx}/admin/layui/layui.js"></script>
 	<script type="text/javascript" src="${ctx}/admin/js/leftNav.js"></script>
 	<script type="text/javascript" src="${ctx}/admin/js/index.js"></script>

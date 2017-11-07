@@ -9,7 +9,7 @@
                         <div class="blog-module-title">热文排行</div>
                         <ul class="fa-ul blog-module-ul">
                              <#list vlist.list as v>
-                            <li><i class="fa-li fa fa-hand-o-right"></i><a style="color:red;" href="${ctx}/article/selectArticle/${(v.a_id)!' '}">${(v.a_title)!' '}</a></li>
+                            <li><i class="fa-li fa   fa-heart-o"></i><a style="color:red" href="${ctx}/article/selectArticle/${(v.a_id)!' '}">${(v.a_title)!' '}</a></li>
                             </#list>
                         </ul>
                     </div>
@@ -17,7 +17,7 @@
                         <div class="blog-module-title">最近分享</div>
                         <ul class="fa-ul blog-module-ul">
                          <#list clist.list as c>
-                            <li><i class="fa-li fa fa-hand-o-right"></i><a style="color:rgb(0, 150, 136);" href="${ctx}/article/selectArticle/${(c.a_id)!' '}">${(c.a_title)!' '}</a></li>
+                            <li><i class="fa-li fa fa-hand-o-right"></i><a style="color:#01AAED;" href="${ctx}/article/selectArticle/${(c.a_id)!' '}">${(c.a_title)!' '}</a></li>
                             </#list>
                         </ul>
                     </div>

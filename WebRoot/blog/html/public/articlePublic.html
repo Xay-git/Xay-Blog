@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+
                    <div class="article-category shadow">
                         <div class="article-category-title">分类导航</div>
                           <#list tlist as t>
@@ -16,7 +10,7 @@
                         <div class="blog-module-title">作者推荐</div>
                         <ul class="fa-ul blog-module-ul">
                             <#list vlist.list as v>
-                            <li><i class="fa-li fa fa-hand-o-right"></i><a style="color:red;" href="${ctx}/article/selectArticle/${(v.a_id)!' '}">${(v.a_title)!' '}</a></li>
+                            <li><i class="fa-li fa fa-thumbs-o-up"></i><a style="color:red;" href="${ctx}/article/selectArticle/${(v.a_id)!' '}">${(v.a_title)!' '}</a></li>
                             </#list>
                         </ul>
                     </div>
@@ -28,5 +22,3 @@
                             </#list>
                         </ul>
                     </div>
-</body>
-</html>

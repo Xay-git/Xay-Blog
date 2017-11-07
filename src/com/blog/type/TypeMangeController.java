@@ -5,14 +5,14 @@ import java.util.Map;
 
 import com.blog.model.XArticle;
 import com.blog.model.XTypenav;
-import com.blog.publicvar.PublicVar;
+import com.blog.publicservice.PublicService;
 import com.blog.util.LayuiPage;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
 
 public class TypeMangeController extends Controller{
 	Map map = new HashMap();
-	PublicVar p = new PublicVar();
+	PublicService p = new PublicService();
 	LayuiPage<XTypenav> layuiPage = new LayuiPage<XTypenav>();
 	public void index(){
 		renderFreeMarker("typeList.html");

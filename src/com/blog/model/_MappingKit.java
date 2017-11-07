@@ -20,6 +20,8 @@ public class _MappingKit {
 		arp.addMapping("x_article", "a_id", XArticle.class);
 		arp.addMapping("x_dev", "d_id", XDev.class);
 		arp.addMapping("x_friendlylink", "x_linkId", XFriendlylink.class);
+		arp.addMapping("x_message", "m_id", XMessage.class);
+		arp.addMapping("x_message1", "m_id", XMessage1.class);
 		arp.addMapping("x_resource", "r_id", XResource.class);
 		arp.addMapping("x_test", "id", XTest.class);
 		arp.addMapping("x_tips", "t_id", XTips.class);

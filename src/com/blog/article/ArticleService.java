@@ -23,7 +23,7 @@ public class ArticleService {
 	}
 	
 	public Page<XArticle> pageArticleAList(int pageNumber, int pageSize){
-		return dao.paginate(pageNumber, pageSize, "select *","from x_article order by a_id desc");
+		return dao.paginate(pageNumber, pageSize, "select *","from x_article order by a_id asc");
 	}
 	
 	public Page<XArticle> viewsList(int pageNumber, int pageSize){
@@ -38,6 +38,14 @@ public class ArticleService {
 		return dao.findById(a_id);
 	}
 	
+	public XArticle selectArticleLastById(int a_id){
+		return dao.findFirst("SELECT * FROM x_article AS a WHERE a.a_id < ? ORDER BY a.a_id desc  LIMIT 0,1;",a_id);
+	}
+	
+	public XArticle selectArticleAfterById(int a_id){
+		return dao.findFirst("SELECT * FROM x_article WHERE a_id > ? ORDER BY a_id asc  LIMIT 0,1;",a_id);
+	}
+	
 	public boolean delectArticleById(int a_id){
 		return dao.deleteById(a_id);
 	}
@@ -49,4 +57,5 @@ public class ArticleService {
 	public List<XArticle> searchArticleWType(String typeName){
 		return dao.find("select * from x_article where a_type = ?",typeName);
 	}
+	
 }

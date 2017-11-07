@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.blog.model.XArticle;
-import com.blog.publicvar.PublicVar;
+import com.blog.publicservice.PublicService;
 import com.blog.util.LayuiPage;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
@@ -12,7 +12,7 @@ import com.jfinal.upload.UploadFile;
 
 public class ArticleMangeController extends Controller {
 	Map map = new HashMap();
-	PublicVar p = new PublicVar();
+	PublicService p = new PublicService();
 	LayuiPage<XArticle> layuiPage = new LayuiPage<XArticle>();
 
 	public void index() {
@@ -84,11 +84,10 @@ public class ArticleMangeController extends Controller {
 	}
 
 	public void updataArticle() {
-		System.out.println(getPara("mini"));
+    
 		try {
 			getModel(XArticle.class, "a").setAArticle(getPara("editorValue")).update();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("编辑失败！");
 		}
@@ -100,7 +99,7 @@ public class ArticleMangeController extends Controller {
         String fileName = f.getFileName();
         map.put("src", "/upload/"+fileName);
         renderJson(map);
-		
 	}
+	
 
 }
